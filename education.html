@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación sobre Gestión de Alimentos</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* Estilos existentes */
+        .education-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .interactive-section {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .interactive-section:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quiz-question {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .quiz-options label:hover {
+            background-color: #dcdcdc;
+        }
+
+        .submit-btn {
+            background-color: #06C167;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #05a357;
+        }
+
+        /* Nuevos estilos para el quiz interactivo */
+        .quiz-container {
+            position: relative;
+        }
+
+        .quiz-progress {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .quiz-result {
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+
+        .next-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background-color: #45a049;
+        }
+
+        .restart-btn {
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Donación de <b style="color: #06C167;">Alimentos</b></div>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="home.html">Inicio</a></li>
+                <li><a href="about.html">Acerca de</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="profile.php">Perfil</a></li>
+                <li><a href="education.html" class="active">Educación</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        hamburger.onclick = function () {
+            const navBar = document.querySelector(".nav-bar");
+            navBar.classList.toggle("active");
+        }
+    </script>
+
+    <div class="education-content">
+        <h1>Aprende a traves de un Quiz</h1>
+
+        <section class="interactive-section">
+            <h2>¿Por qué es importante gestionar los alimentos excedentes?</h2>
+            <p>La gestión adecuada de los alimentos excedentes ayuda a:</p>
+            <ul>
+                <li>Reducir el desperdicio de alimentos</li>
+                <li>Ayudar a personas necesitadas</li>
+                <li>Disminuir el impacto ambiental</li>
+            </ul>
+        </section>
+
+        <section class="interactive-section">
+            <h2>Pasos para gestionar alimentos excedentes</h2>
+            <ol>
+                <li>Identifica los alimentos excedentes</li>
+                <li>Evalúa su calidad y seguridad</li>
+                <li>Almacena adecuadamente</li>
+                <li>Contacta con organizaciones locales</li>
+                <li>Coordina la entrega o recogida</li>
+            </ol>
+        </section>
+
+        <section class="interactive-section">
+            <h2>Quiz: ¿Cuánto has aprendido?</h2>
+            <div class="quiz-container">
+                <div class="quiz-progress" id="quiz-progress">Pregunta 1 de 3</div>
+                <div class="quiz-question" id="quiz-question">
+                    <p>¿Cuál de las siguientes NO es una razón para gestionar alimentos excedentes?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q" value="a"> a) Reducir el desperdicio</label>
+                        <label><input type="radio" name="q" value="b"> b) Ayudar a personas necesitadas</label>
+                        <label><input type="radio" name="q" value="c"> c) Aumentar las ganancias personales</label>
+                        <label><input type="radio" name="q" value="d"> d) Disminuir el impacto ambiental</label>
+                    </div>
+                </div>
+                <button class="submit-btn" id="submit-btn" onclick="submitAnswer()">Enviar respuesta</button>
+                <button class="next-btn" id="next-btn" onclick="nextQuestion()">Siguiente pregunta</button>
+                <p class="quiz-result" id="quiz-result"></p>
+                <button class="restart-btn" id="restart-btn" onclick="restartQuiz()">Reiniciar Quiz</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Cuál de las siguientes NO es una razón para gestionar alimentos excedentes?",
+                options: {
+                    a: "Reducir el desperdicio",
+                    b: "Ayudar a personas necesitadas",
+                    c: "Aumentar las ganancias personales",
+                    d: "Disminuir el impacto ambiental"
+                },
+                correct: "c",
+                feedback: "¡Correcto! La gestión de alimentos excedentes no tiene como objetivo principal aumentar las ganancias personales."
+            },
+            {
+                question: "¿Cuál es el primer paso para gestionar alimentos excedentes?",
+                options: {
+                    a: "Almacenar adecuadamente",
+                    b: "Identificar los alimentos excedentes",
+                    c: "Contactar con organizaciones locales",
+                    d: "Evaluar su calidad y seguridad"
+                },
+                correct: "b",
+                feedback: "¡Correcto! El primer paso es identificar los alimentos excedentes."
+            },
+            {
+                question: "¿Cuál de las siguientes acciones ayuda a disminuir el impacto ambiental?",
+                options: {
+                    a: "Aumentar la producción de alimentos",
+                    b: "Reducir el desperdicio de alimentos",
+                    c: "Incrementar las exportaciones de alimentos",
+                    d: "Utilizar empaques no reciclables"
+                },
+                correct: "b",
+                feedback: "¡Correcto! Reducir el desperdicio de alimentos ayuda a disminuir el impacto ambiental."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quizProgress = document.getElementById('quiz-progress');
+            const quizQuestion = document.getElementById('quiz-question');
+            const submitBtn = document.getElementById('submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const quizResult = document.getElementById('quiz-result');
+
+            quizProgress.textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+            quizQuestion.innerHTML = `<p>${questions[currentQuestion].question}</p>`;
+            const options = questions[currentQuestion].options;
+            let optionsHtml = '<div class="quiz-options">';
+            for (let key in options) {
+                optionsHtml += `<label><input type="radio" name="q" value="${key}"> ${key}) ${options[key]}</label>`;
+            }
+            optionsHtml += '</div>';
+            quizQuestion.innerHTML += optionsHtml;
+
+            quizResult.textContent = '';
+            submitBtn.style.display = 'inline-block';
+            nextBtn.style.display = 'none';
+        }
+
+        function submitAnswer() {
+            const selectedAnswer = document.querySelector('input[name="q"]:checked');
+            const quizResult = document.getElementById('quiz-result');
+            const submitBtn = document.getElementById('submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (selectedAnswer) {
+                if (selectedAnswer.value === questions[currentQuestion].correct) {
+                    quizResult.textContent = questions[currentQuestion].feedback;
+                    quizResult.style.color = 'green';
+                    score++;
+                } else {
+                    quizResult.textContent = 'Incorrecto. ' + questions[currentQuestion].feedback;
+                    quizResult.style.color = 'red';
+                }
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+            } else {
+                quizResult.textContent = 'Por favor, selecciona una respuesta.';
+                quizResult.style.color = 'orange';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showFinalResult();
+            }
+        }
+
+        function showFinalResult() {
+            const quizContainer = document.querySelector('.quiz-container');
+            const quizProgress = document.getElementById('quiz-progress');
+            const quizQuestion = document.getElementById('quiz-question');
+            const submitBtn = document.getElementById('submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const quizResult = document.getElementById('quiz-result');
+            const restartBtn = document.getElementById('restart-btn');
+
+            quizProgress.textContent = 'Resultado Final';
+            quizQuestion.innerHTML = `<p>Has respondido correctamente ${score} de ${questions.length} preguntas.</p>`;
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            quizResult.textContent = '';
+            restartBtn.style.display = 'inline-block';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            loadQuestion();
+            const restartBtn = document.getElementById('restart-btn');
+            restartBtn.style.display = 'none';
+        }
+
+        // Inicializar el quiz al cargar la página
+        window.onload = loadQuestion;
+    </script>
+
+</body>
+
+</html>
