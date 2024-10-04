@@ -113,7 +113,7 @@ $id = $_SESSION['Did'];
     <div class="itm">
         <img src="../img/delivery.gif" alt="" width="400" height="400">
     </div>
-    <!-- <h2><center>Tu ubicación: <?php echo "$city" ?></center></h2> -->
+    <h2><center>Tu ubicación: <?php echo "$city" ?></center></h2>
     <div class="get">
         <?php
         // Definir la consulta SQL para obtener pedidos no asignados
