@@ -227,7 +227,7 @@ if (isset($_POST['food']) && isset($_POST['delivery_person_id'])) {
             <th>Comida</th>
             <th>Categoría</th>
             <th>Teléfono</th>
-            <th>Fecha</th>
+            <th>Fecha de Vencimiento</th>
             <th>Dirección</th>
             <th>Cantidad</th>
             <!-- <th>Acción</th> -->
@@ -251,7 +251,7 @@ if (isset($_POST['food']) && isset($_POST['delivery_person_id'])) {
                 echo "Cocida";
                 break;
         }
-        echo "</td><td data-label=\"teléfono\">".$row['phoneno']."</td><td data-label=\"fecha\">".date('m/d/Y g:i A', strtotime($row['date']))."</td><td data-label=\"Dirección\">".$row['address']."</td><td data-label=\"cantidad\">".$row['quantity']."</td>";
+        echo "</td><td data-label=\"teléfono\">".$row['phoneno']."</td><td data-label=\"fecha\">".date('d/m/Y', strtotime($row['expiration_date']))."</td><td data-label=\"Dirección\">".$row['address']."</td><td data-label=\"cantidad\">".$row['quantity']."</td>";
 ?>
         
             <!-- <td><?= $row['Fid'] ?></td>

@@ -25,22 +25,30 @@ if (isset($_POST['submit'])) {
   $district = mysqli_real_escape_string($connection, $_POST['district']);
   $address = mysqli_real_escape_string($connection, $_POST['address']);
   $name = mysqli_real_escape_string($connection, $_POST['name']);
+  $expiration_date = mysqli_real_escape_string($connection, $_POST['expiration_date']);
 
-  // Ejecuta la consulta de inserción
-  $query = "insert into food_donations(email,food,type,category,phoneno,location,address,name,quantity) values('$emailid','$foodname','$meal','$category','$phoneno','$district','$address','$name','$quantity')";
-  $query_run = mysqli_query($connection, $query);
-  if ($query_run) {
-    // Muestra un mensaje de éxito si los datos se guardaron correctamente
-    echo '<script type="text/javascript">alert("Datos guardados")</script>';
-    // Redirige a la página de entrega
-    header("location:delivery.html");
+  // Validar la fecha de caducidad
+  $current_date = date('Y-m-d');
+
+  if ($expiration_date <= $current_date) {
+    echo '<script type="text/javascript">alert("La fecha de caducidad debe ser posterior a la fecha actual")</script>';
   } else {
-    // Muestra un mensaje de error si los datos no se guardaron
-    echo '<script type="text/javascript">alert("Datos no guardados")</script>';
+    // Ejecuta la consulta de inserción
+    $query = "INSERT INTO food_donations(email, food, type, category, phoneno, location, address, name, quantity, expiration_date) 
+              VALUES ('$emailid', '$foodname', '$meal', '$category', '$phoneno', '$district', '$address', '$name', '$quantity', '$expiration_date')";
+    $query_run = mysqli_query($connection, $query);
+    if ($query_run) {
+      // Muestra un mensaje de éxito si los datos se guardaron correctamente
+      echo '<script type="text/javascript">alert("Datos guardados")</script>';
+      // Redirige a la página de entrega
+      header("location:delivery.html");
+    } else {
+      // Muestra un mensaje de error si los datos no se guardaron
+      echo '<script type="text/javascript">alert("Datos no guardados")</script>';
+    }
   }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -53,7 +61,7 @@ if (isset($_POST['submit'])) {
   <link rel="stylesheet" href="loginstyle.css">
 </head>
 
-<body style="    background-color: #06C167;">
+<body style="background-color: #06C167;">
   <div class="container">
     <div class="regformf">
       <form action="" method="post">
@@ -99,6 +107,11 @@ if (isset($_POST['submit'])) {
         <div class="input">
           <label for="quantity">Cantidad: (número de personas /kg)</label>
           <input type="text" id="quantity" name="quantity" required />
+        </div>
+        <div class="input">
+          <label for="expiration_date">Fecha de caducidad:</label>
+          <input type="date" id="expiration_date" name="expiration_date" required
+            min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
         </div>
         <b>
           <p style="text-align: center;">Detalles de contacto</p>
@@ -199,6 +212,9 @@ if (isset($_POST['submit'])) {
           <input type="text" id="address" name="address" required /><br>
 
         </div>
+
+
+
         <div class="btn">
           <button type="submit" name="submit">Enviar</button>
         </div>
