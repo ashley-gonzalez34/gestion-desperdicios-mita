@@ -329,5 +329,108 @@ if (isset($_POST['food']) && isset($_POST['delivery_person_id'])) {
     </section>
 
     <script src="admin.js"></script>
+
+
+    <?php
+// Asumimos que ya tienes una conexión a la base de datos establecida
+
+// Función para obtener productos próximos a vencer
+function obtenerProductosPorVencer($connection) {
+    $fecha_actual = date('Y-m-d');
+    $fecha_limite = date('Y-m-d', strtotime('+2 days'));
+    
+    $query = "SELECT * FROM food_donations WHERE expiration_date BETWEEN '$fecha_actual' AND '$fecha_limite ' and assigned_to is NULL";
+    $result = mysqli_query($connection, $query);
+    
+    $productos = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $productos[] = $row;
+    }
+    
+    return $productos;
+}
+
+// Obtener productos próximos a vencer
+$productos_por_vencer = obtenerProductosPorVencer($connection);
+
+// Generar HTML para el pop-up
+$popup_html = "";
+if (!empty($productos_por_vencer)) {
+    $popup_html .= "<div id='popup-productos-vencer' class='popup'>";
+    $popup_html .= "<div class='popup-content'>";
+    $popup_html .= "<h3>Productos próximos a vencer ⚠️</h3>";
+    $popup_html .= "<ul>";
+    foreach ($productos_por_vencer as $producto) {
+        $popup_html .= "<li>ID {$producto['Fid']} | {$producto['food']} - Vence: {$producto['expiration_date']}</li>";
+    }
+    $popup_html .= "</ul>";
+    $popup_html .= "<button onclick='cerrarPopup()'>Cerrar</button>";
+    $popup_html .= "</div>";
+    $popup_html .= "</div>";
+}
+
+// Insertar el HTML del pop-up al final del body
+echo $popup_html;
+?>
+
+<script>
+function cerrarPopup() {
+    document.getElementById('popup-productos-vencer').style.display = 'none';
+}
+
+// Mostrar el pop-up automáticamente al cargar la página
+window.onload = function() {
+    var popup = document.getElementById('popup-productos-vencer');
+    if (popup) {
+        popup.style.display = 'block';
+    }
+}
+</script>
+
+<style>
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.popup-content li {
+    margin-bottom: 10px;
+}
+
+.popup-content button {
+    display: block;
+    margin-top: 20px;
+}
+</style>
+
+
+
+
 </body>
 </html>
