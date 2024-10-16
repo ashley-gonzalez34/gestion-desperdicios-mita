@@ -78,7 +78,9 @@ CREATE TABLE `food_donations` (
   `location` varchar(50) NOT NULL,
   `phoneno` varchar(25) NOT NULL,
   `assigned_to` int(11) DEFAULT NULL,
-  `delivery_by` int(11) DEFAULT NULL
+  `delivery_by` int(11) DEFAULT NULL,
+  `expiration_date` date DEFAULT NULL,
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
