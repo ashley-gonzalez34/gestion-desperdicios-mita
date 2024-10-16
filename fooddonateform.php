@@ -77,9 +77,9 @@ if (isset($_POST['submit'])) {
           <label for="meal">Tipo de comida:</label>
           <br><br>
 
-          <input type="radio" name="meal" id="veg" value="veg" required />
+          <input type="radio" name="meal" id="veg" value="Vegana" required />
           <label for="veg" style="padding-right: 40px;">Vegetariana</label>
-          <input type="radio" name="meal" id="Non-veg" value="Non-veg">
+          <input type="radio" name="meal" id="Non-veg" value="No Vegana">
           <label for="Non-veg">No vegetariana</label>
 
         </div>
@@ -88,15 +88,15 @@ if (isset($_POST['submit'])) {
           <label for="food">Seleccione la categoría:</label>
           <br><br>
           <div class="image-radio-group">
-            <input type="radio" id="raw-food" name="image-choice" value="raw-food">
+            <input type="radio" id="raw-food" name="image-choice" value="Cruda">
             <label for="raw-food">
               <img src="img/raw-food.png" alt="Comida cruda">
             </label>
-            <input type="radio" id="cooked-food" name="image-choice" value="cooked-food" checked>
+            <input type="radio" id="cooked-food" name="image-choice" value="Cocinada" checked>
             <label for="cooked-food">
               <img src="img/cooked-food.png" alt="Comida cocinada">
             </label>
-            <input type="radio" id="packed-food" name="image-choice" value="packed-food">
+            <input type="radio" id="packed-food" name="image-choice" value="Empaquetada">
             <label for="packed-food">
               <img src="img/packed-food.png" alt="Comida empaquetada">
             </label>

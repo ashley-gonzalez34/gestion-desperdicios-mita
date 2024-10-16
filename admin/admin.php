@@ -239,18 +239,8 @@ if (isset($_POST['food']) && isset($_POST['delivery_person_id'])) {
        <tbody>
 
         <?php foreach ($data as $row) { ?>
-        <?php    echo "<tr><td data-label=\"nombre\">".$row['name']."</td><td data-label=\"comida\">".$row['food']."</td><td data-label=\"categoría\">";
-        switch($row['category']){
-            case 'packed-food':
-                echo "Empaquetada";
-                break;
-            case 'raw-food':
-                echo "Cruda";
-                break;
-            case 'cooked-food':
-                echo "Cocida";
-                break;
-        }
+        <?php    echo "<tr><td data-label=\"nombre\">".$row['name']."</td><td data-label=\"comida\">".$row['food']."</td><td data-label=\"categoría\">".$row['category']."</td>";
+    
         echo "</td><td data-label=\"teléfono\">".$row['phoneno']."</td><td data-label=\"fecha\">".date('d/m/Y', strtotime($row['expiration_date']))."</td><td data-label=\"Dirección\">".$row['address']."</td><td data-label=\"cantidad\">".$row['quantity']."</td>";
 ?>
         

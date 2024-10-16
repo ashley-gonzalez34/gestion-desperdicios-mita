@@ -104,10 +104,8 @@ if ($_SESSION["name"] == "") {
                             $result = mysqli_query($connection, $query);
                             if ($result == true) {
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    $category = $row["category"] == "packed-food" ? "Comida Empacada" :
-                                        ($row["category"] == "raw-food" ? "Comida Cruda" :
-                                            ($row["category"] == "cooked-food" ? "Comida Cocida" : $row["category"]));
-                                    $type = $row["type"] == "Non-veg" ? "No Vegana" : "Vegana";
+                                    $category = $row["category"];
+                                    $type = $row["type"];
 
                                     // Convert the date to 12-hour format
                                     $date = new DateTime($row["date"]);
