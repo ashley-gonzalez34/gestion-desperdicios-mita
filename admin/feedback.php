@@ -26,7 +26,7 @@ if($_SESSION['name']==''){
     <title>Panel de Control del Administrador</title> 
     
 <?php
- $connection=mysqli_connect("localhost","root","elmaspro123");
+ $connection=mysqli_connect("localhost","root","Ashley123456.");
  $db=mysqli_select_db($connection,'demo');
  
 

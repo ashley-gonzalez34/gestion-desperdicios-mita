@@ -3,7 +3,7 @@
 session_start();
 
 // Database connection
-$connection = mysqli_connect("localhost", "root", "elmaspro123", "demo");
+$connection = mysqli_connect("localhost", "root", "Ashley123456.", "demo");
 
 // Check connection
 if (!$connection) {

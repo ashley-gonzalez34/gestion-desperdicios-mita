@@ -34,7 +34,7 @@ if(isset($_POST['sign']))
         // $_SESSION['gender']=$row['gender'];
        
         header("location:signin.php");
-        // echo "<h1><center>Account does not exists </center></h1>";
+        // echo "<h1><center>La cuenta no existe. </center></h1>";
         //  echo '<script type="text/javascript">alert("Account created successfully")</script>'; -->
     }
     else{
