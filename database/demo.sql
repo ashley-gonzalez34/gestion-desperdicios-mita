@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Apr 18, 2023 at 04:00 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Servidor: localhost:3306
+-- Tiempo de generación: 23-10-2024 a las 07:41:23
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `demo`
+-- Base de datos: `demo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Estructura de tabla para la tabla `admin`
 --
 
 CREATE TABLE `admin` (
@@ -37,13 +37,16 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Volcado de datos para la tabla `admin`
 --
+
+INSERT INTO `admin` (`Aid`, `name`, `email`, `password`, `location`, `address`) VALUES
+(3, 'admin', 'gonzalezashli219@gmail.com', '$2y$10$bJWtS6UqnO6tEPQ/6JmLQ.zmd4TC.n.0/tPS9lOT42A6b3REb8fN6', 'asuncion_mita', 'as mita');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `delivery_persons`
+-- Estructura de tabla para la tabla `delivery_persons`
 --
 
 CREATE TABLE `delivery_persons` (
@@ -55,14 +58,16 @@ CREATE TABLE `delivery_persons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `delivery_persons`
+-- Volcado de datos para la tabla `delivery_persons`
 --
 
+INSERT INTO `delivery_persons` (`Did`, `name`, `email`, `password`, `city`) VALUES
+(5, 'repartidor', 'pazherreramari@gmail.com', '$2y$10$t.gv.vno5HcJfMcc3kDAN.mUFykyMscfOMCsd7G7.UkvAH3rqBGPq', 'aguas_finas');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `food_donations`
+-- Estructura de tabla para la tabla `food_donations`
 --
 
 CREATE TABLE `food_donations` (
@@ -80,17 +85,20 @@ CREATE TABLE `food_donations` (
   `assigned_to` int(11) DEFAULT NULL,
   `delivery_by` int(11) DEFAULT NULL,
   `expiration_date` date DEFAULT NULL
-  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `food_donations`
+-- Volcado de datos para la tabla `food_donations`
 --
+
+INSERT INTO `food_donations` (`Fid`, `name`, `email`, `food`, `type`, `category`, `quantity`, `date`, `address`, `location`, `phoneno`, `assigned_to`, `delivery_by`, `expiration_date`) VALUES
+(26, 'ash gonzalez', 'cami123@gmail.com', 'Frijoles', 'Vegana', 'Cruda', '43', '2024-10-22 23:29:50', 'jutiapa', 'asuncion_mita', '31943009', 3, NULL, '2024-10-24'),
+(27, 'ash gonzalez', 'gonzalezashli219@gmail.com', 'Banano', 'Vegana', 'Cruda', '5', '2024-10-22 23:33:26', 'jutiapa', 'aguas_finas', '31943009', 3, 5, '2024-10-31');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
+-- Estructura de tabla para la tabla `login`
 --
 
 CREATE TABLE `login` (
@@ -98,18 +106,25 @@ CREATE TABLE `login` (
   `name` text NOT NULL,
   `email` varchar(60) NOT NULL,
   `password` text NOT NULL,
-  `gender` text NOT NULL
+  `gender` text NOT NULL,
+  `phone` varchar(9) NOT NULL,
+  `dpi` varchar(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `login`
+-- Volcado de datos para la tabla `login`
 --
 
+INSERT INTO `login` (`id`, `name`, `email`, `password`, `gender`, `phone`, `dpi`) VALUES
+(19, 'ash gonzalez', 'cami123@gmail.com', '$2y$10$O2dVHkH/Bhpr3OWT0G.7k.vtn7iHWNjhbUXdFcTUpWFMXsFl.8uxC', 'female', '31943009', '1234567899658'),
+(17, 'ash gonzalez', 'pazherreramari@gmail.com', '$2y$10$MaccICmldWOsR/SZz3mnGeVvSe3mheeKuacLfDqVjFp/qadHSHFFS', 'female', '31943009', '2451789450101'),
+(20, 'persona', 'persona@gmail.com', '$2y$10$0hnzw0fjpT4K0641NC.FD.PbGLzJJftz5G0/RqRpSsNYMPk/efqQy', 'male', '31943009', '1234567891014'),
+(18, 'ash gonzalez', 'tasuncion82@gmail.com', '$2y$10$3/UYI/PuRqGqpfdHCD9PNeHPhSVRl9ua1v0Lq4CxpuYC5bqAaEH0O', 'female', '31943009', '1234567899658');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_feedback`
+-- Estructura de tabla para la tabla `user_feedback`
 --
 
 CREATE TABLE `user_feedback` (
@@ -120,79 +135,79 @@ CREATE TABLE `user_feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user_feedback`
+-- Volcado de datos para la tabla `user_feedback`
 --
 
 INSERT INTO `user_feedback` (`feedback_id`, `name`, `email`, `message`) VALUES
 (1, 'John Smith', 'john@example.com', 'I really enjoyed using your product!');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `admin`
+-- Indices de la tabla `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`Aid`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `delivery_persons`
+-- Indices de la tabla `delivery_persons`
 --
 ALTER TABLE `delivery_persons`
   ADD PRIMARY KEY (`Did`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `food_donations`
+-- Indices de la tabla `food_donations`
 --
 ALTER TABLE `food_donations`
   ADD PRIMARY KEY (`Fid`);
 
 --
--- Indexes for table `login`
+-- Indices de la tabla `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `user_feedback`
+-- Indices de la tabla `user_feedback`
 --
 ALTER TABLE `user_feedback`
   ADD PRIMARY KEY (`feedback_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `Aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `delivery_persons`
+-- AUTO_INCREMENT de la tabla `delivery_persons`
 --
 ALTER TABLE `delivery_persons`
-  MODIFY `Did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `food_donations`
+-- AUTO_INCREMENT de la tabla `food_donations`
 --
 ALTER TABLE `food_donations`
-  MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `login`
+-- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `user_feedback`
+-- AUTO_INCREMENT de la tabla `user_feedback`
 --
 ALTER TABLE `user_feedback`
   MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
